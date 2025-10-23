@@ -1,5 +1,6 @@
 import Board from "../models/Board.js";
 import User from "../models/User.js";
+import { generateNextId } from "../utils/generateNextId.js";
 
 export const getBoardsForCurrentUser = async (req, res, next) => {
   try {
@@ -33,12 +34,10 @@ export const getBoardById = async (req, res, next) => {
 export const createBoard = async (req, res, next) => {
   try {
     const clerkId = req.user.sub;
+    const { board_name, lists } = req.body;
 
-    const { board_id, board_name, lists } = req.body;
-
-    const existing = await Board.findOne({ board_id });
-    if (existing)
-      return res.status(400).json({ message: "Board ID already exists" });
+    const userBoards = await Board.find({ users: clerkId });
+    const board_id = generateNextId("B", userBoards, "board_id");
 
     const newBoard = await Board.create({
       board_id,
@@ -96,29 +95,29 @@ export const deleteBoard = async (req, res, next) => {
 export const addListToBoard = async (req, res, next) => {
   try {
     const clerkId = req.user.sub;
-    const { list_id, list_name, list_status, list_items, order_in_board } =
-      req.body;
+    const { list_name, list_status, list_items, order_in_board } = req.body;
 
     const board = await Board.findOne({
       board_id: req.params.board_id,
       users: clerkId,
     });
-
     if (!board) return res.status(404).json({ message: "Board not found" });
+
+    const list_id = generateNextId("L", board.lists, "list_id");
 
     const newList = {
       list_id,
       list_name,
       list_status: list_status || "NotStarted",
       list_items: list_items || [],
-      order_in_board,
+      order_in_board: order_in_board ?? board.lists.length,
     };
 
     board.lists.push(newList);
     board.board_updated_date = new Date();
     await board.save();
 
-    res.json(board);
+    res.status(201).json(board);
   } catch (err) {
     next(err);
   }
@@ -220,24 +219,25 @@ export const updateListItemInBoard = async (req, res, next) => {
 export const addListItemToBoard = async (req, res, next) => {
   try {
     const clerkId = req.user.sub;
-    const { list_id } = req.params;
-    const { list_item_id, list_text, status, order_in_list } = req.body;
+    const { list_id } = req.params; // get list_id from URL
+    const { list_text, status, order_in_list } = req.body;
 
     const board = await Board.findOne({
       board_id: req.params.board_id,
       users: clerkId,
     });
-
     if (!board) return res.status(404).json({ message: "Board not found" });
 
-    const list = board.lists.find((list) => list.list_id === list_id);
+    const list = board.lists.find((l) => l.list_id === list_id);
     if (!list) return res.status(404).json({ message: "List not found" });
+
+    const list_item_id = generateNextId("I", list.list_items, "list_id");
 
     const newItem = {
       list_id: list_item_id,
       list_text,
       status: status || "NotComplete",
-      order_in_list,
+      order_in_list: order_in_list ?? list.list_items.length,
     };
 
     list.list_items.push(newItem);
