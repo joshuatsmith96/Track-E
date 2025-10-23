@@ -1,16 +1,15 @@
-import { Button, Typography, Container } from "@mui/material";
+import { SignedIn, SignedOut, UserButton } from "@clerk/clerk-react";
+import SignInPage from "./components/SignInPage";
 
-function App() {
+export default function App() {
   return (
-    <Container sx={{ textAlign: "center", mt: 4 }}>
-      <Typography variant="h4" gutterBottom>
-        Hello, MUI + Vite!
-      </Typography>
-      <Button variant="contained" color="primary">
-        Click Me
-      </Button>
-    </Container>
+    <header>
+      <SignedOut>
+        <SignInPage />
+      </SignedOut>
+      <SignedIn>
+        <UserButton />
+      </SignedIn>
+    </header>
   );
 }
-
-export default App;
