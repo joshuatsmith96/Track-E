@@ -123,3 +123,61 @@ export const addListToBoard = async (req, res, next) => {
     next(err);
   }
 };
+
+export const removeListFromBoard = async (req, res, next) => {
+  try {
+    const clerkId = req.user.sub;
+    const { list_id } = req.params;
+
+    const board = await Board.findOne({
+      board_id: req.params.board_id,
+      users: clerkId,
+    });
+
+    if (!board) return res.status(404).json({ message: "Board not found" });
+
+    const initialLength = board.lists.length;
+    board.lists = board.lists.filter((list) => list.list_id !== list_id);
+
+    if (board.lists.length === initialLength) {
+      return res.status(404).json({ message: "List not found" });
+    }
+
+    board.board_updated_date = new Date();
+    await board.save();
+
+    res.json(board);
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const updateListInBoard = async (req, res, next) => {
+  try {
+    const clerkId = req.user.sub;
+    const { list_id } = req.params;
+    const { list_name, list_status, list_items, order_in_board } = req.body;
+
+    const board = await Board.findOne({
+      board_id: req.params.board_id,
+      users: clerkId,
+    });
+
+    if (!board) return res.status(404).json({ message: "Board not found" });
+
+    const list = board.lists.find((list) => list.list_id === list_id);
+    if (!list) return res.status(404).json({ message: "List not found" });
+
+    if (list_name !== undefined) list.list_name = list_name;
+    if (list_status !== undefined) list.list_status = list_status;
+    if (list_items !== undefined) list.list_items = list_items;
+    if (order_in_board !== undefined) list.order_in_board = order_in_board;
+
+    board.board_updated_date = new Date();
+    await board.save();
+
+    res.json(board);
+  } catch (err) {
+    next(err);
+  }
+};
