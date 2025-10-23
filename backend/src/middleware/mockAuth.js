@@ -1,4 +1,4 @@
 export const mockAuth = (req, res, next) => {
-  req.user = { sub: "ClerkID123" };
+  req.user = { sub: "UniqueID123" };
   next();
 };
