@@ -1,6 +1,7 @@
 import Board from "../models/Board.js";
 import User from "../models/User.js";
 import { generateNextId } from "../utils/generateNextId.js";
+import { v4 as uuidv4 } from "uuid";
 
 export const getBoardsForCurrentUser = async (req, res, next) => {
   try {
@@ -36,8 +37,7 @@ export const createBoard = async (req, res, next) => {
     const clerkId = req.user.sub;
     const { board_name, lists } = req.body;
 
-    const userBoards = await Board.find({ users: clerkId });
-    const board_id = generateNextId("B", userBoards, "board_id");
+    const board_id = uuidv4();
 
     const newBoard = await Board.create({
       board_id,

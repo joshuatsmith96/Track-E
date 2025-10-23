@@ -1,6 +1,7 @@
 {
   "dependencies": {
-    "@clerk/clerk-sdk-node": "^5.1.6"
+    "@clerk/clerk-sdk-node": "^5.1.6",
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
     "@types/express": "^5.0.3"
