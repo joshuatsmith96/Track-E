@@ -1,25 +1,13 @@
-import {
-  SignedOut,
-  SignInButton,
-  SignedIn,
-  UserButton,
-} from "@clerk/clerk-react";
+import { SignedIn, UserButton } from "@clerk/clerk-react";
 import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
     <header>
       <nav>
-        <SignedOut>
-          <p>Signed-Out</p>
-          <SignInButton mode="modal">
-            <button>Sign In</button>
-          </SignInButton>
-        </SignedOut>
-
         <SignedIn>
           <p>Signed-In</p>
-          <Link to="/dashboard">Dashboard</Link>
+          <Link to="/">Boards</Link>
           <UserButton />
         </SignedIn>
       </nav>

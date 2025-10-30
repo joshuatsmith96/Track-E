@@ -3,12 +3,15 @@ import type { JSX } from "react";
 import { Navigate } from "react-router-dom";
 
 const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
-  const { isSignedIn, isLoaded } = useUser();
+  const { isSignedIn } = useUser();
 
-  if (!isLoaded) return <div>Loading...</div>;
-  if (!isSignedIn) return <Navigate to="/" />;
+  if (!isSignedIn) {
+    return <Navigate to="/login" />;
+  }
 
-  return children;
+  if (isSignedIn) {
+    return children;
+  }
 };
 
 export default ProtectedRoute;

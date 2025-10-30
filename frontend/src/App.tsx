@@ -1,8 +1,11 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
-import Dashboard from "./pages/Dashboard";
 import Header from "./layout/Header";
 import useBoards from "./utilities/hooks/useBoards";
+import Login from "./pages/Login";
+import Boards from "./pages/Boards";
+import ErrorPage from "./pages/ErrorPage";
+import Registration from "./pages/Registration";
 
 export default function App() {
   const { boards } = useBoards();
@@ -16,10 +19,13 @@ export default function App() {
           path="/"
           element={
             <ProtectedRoute>
-              <Dashboard />
+              <Boards />
             </ProtectedRoute>
           }
         />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Registration />} />
+        <Route path="/*" element={<ErrorPage />} />
       </Routes>
     </Router>
   );
