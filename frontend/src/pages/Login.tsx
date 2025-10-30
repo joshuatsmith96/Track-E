@@ -11,13 +11,16 @@ import {
   Paper,
 } from "@mui/material";
 import { Navigate } from "react-router-dom";
+import { useTheme } from "@mui/material";
 import React from "react";
 
 const Login = () => {
   const { isSignedIn } = useUser();
   const { isLoaded, signIn } = useSignIn();
+  const theme = useTheme();
   const clerk = useClerk();
   const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
+  console.log(theme.palette.primary.main);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -81,7 +84,7 @@ const Login = () => {
       }}
     >
       <Stack sx={{ alignItems: "center" }}>
-        <Typography variant="h4" fontWeight={"bold"}>
+        <Typography variant="h4" fontWeight={"bold"} color="#6161ffff">
           Track-E
         </Typography>
         <Typography>Your task management system made easy.</Typography>
@@ -126,7 +129,12 @@ const Login = () => {
               required
               fullWidth
             />
-            <Button type="submit" fullWidth variant="contained">
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ bgcolor: "#6161ffff" }}
+            >
               Sign In
             </Button>
           </Stack>
@@ -140,13 +148,19 @@ const Login = () => {
           fullWidth
           variant="outlined"
           onClick={handleGoogleSignIn}
-          sx={{ textTransform: "none" }}
+          sx={{
+            textTransform: "none",
+            color: "#6161ffff",
+            borderColor: "#6161ffff",
+          }}
         >
           Sign in with Google
         </Button>
 
         <Box sx={{ mt: 2, textAlign: "center" }}>
-          <Button href="/register">Create account</Button>
+          <Button href="/register" sx={{ color: "#6161ffff" }}>
+            Create account
+          </Button>
         </Box>
       </Paper>
     </Container>
