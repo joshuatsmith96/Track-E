@@ -1,6 +1,7 @@
 import { useUser } from "@clerk/clerk-react";
 import type { JSX } from "react";
 import { Navigate } from "react-router-dom";
+import Dashboard from "./DashboardMenu";
 
 const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
   const { isSignedIn } = useUser();
@@ -10,7 +11,7 @@ const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
   }
 
   if (isSignedIn) {
-    return children;
+    return <Dashboard>{children}</Dashboard>;
   }
 };
 
