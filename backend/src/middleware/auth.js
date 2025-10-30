@@ -1,18 +1,19 @@
-import { verifyToken } from "@clerk/clerk-sdk-node";
+import "dotenv/config";
+import { verifyToken } from "@clerk/backend";
 
 export const requireAuth = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      return res.status(401).json({ message: "No token provided" });
-    }
-
     const token = authHeader.split(" ")[1];
-    const session = await verifyToken(token);
-    req.user = session;
+
+    const verifiedToken = await verifyToken(token, {
+      jwtKey: process.env.CLERK_JWT_KEY,
+      authorizedParties: ["http://localhost:5173"],
+    });
+
+    req.user = { sub: verifiedToken.sub };
     next();
   } catch (err) {
     res.status(401).json({ message: "Unauthorized" });
-    console.error(err);
   }
 };

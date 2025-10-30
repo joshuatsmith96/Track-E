@@ -16,7 +16,7 @@ import {
 import { mockAuth } from "../middleware/mockAuth.js";
 import { requireAuth } from "../middleware/auth.js";
 
-const auth = mockAuth;
+const auth = requireAuth;
 
 const router = express.Router();
 router.get("/me", auth, getBoardsForCurrentUser);
