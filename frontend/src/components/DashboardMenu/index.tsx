@@ -9,7 +9,7 @@ type DashboardMenuProps = {
 
 const Dashboard = ({ children }: DashboardMenuProps) => {
   return (
-    <Stack direction="row" sx={{ width: "100%", height: "100vh" }} flex={1}>
+    <Stack direction="row" sx={{ width: "100%", height: "100vh" }}>
       <DashMenu />
       <Stack sx={{ width: "100%" }}>
         <DashBar />
