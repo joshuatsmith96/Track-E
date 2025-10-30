@@ -12,30 +12,34 @@ import {
   addListItemToBoard,
   removeListItemFromBoard,
 } from "../controllers/boardController.js";
+
 import { mockAuth } from "../middleware/mockAuth.js";
+import { requireAuth } from "../middleware/auth.js";
+
+const auth = requireAuth;
 
 const router = express.Router();
-router.get("/me", mockAuth, getBoardsForCurrentUser);
+router.get("/me", auth, getBoardsForCurrentUser);
 
 router
   .route("/:board_id")
-  .get(mockAuth, getBoardById)
-  .put(mockAuth, updateBoard)
-  .delete(mockAuth, deleteBoard);
+  .get(auth, getBoardById)
+  .put(auth, updateBoard)
+  .delete(auth, deleteBoard);
 
-router.post("/", mockAuth, createBoard);
-router.patch("/:board_id/lists", mockAuth, addListToBoard);
-router.delete("/:board_id/lists/:list_id", mockAuth, removeListFromBoard);
-router.put("/:board_id/lists/:list_id", mockAuth, updateListInBoard);
+router.post("/", auth, createBoard);
+router.patch("/:board_id/lists", auth, addListToBoard);
+router.delete("/:board_id/lists/:list_id", auth, removeListFromBoard);
+router.put("/:board_id/lists/:list_id", auth, updateListInBoard);
 router.put(
   "/:board_id/lists/:list_id/items/:list_item_id",
-  mockAuth,
+  auth,
   updateListItemInBoard
 );
-router.post("/:board_id/lists/:list_id/items", mockAuth, addListItemToBoard);
+router.post("/:board_id/lists/:list_id/items", auth, addListItemToBoard);
 router.delete(
   "/:board_id/lists/:list_id/items/:list_item_id",
-  mockAuth,
+  auth,
   removeListItemFromBoard
 );
 
