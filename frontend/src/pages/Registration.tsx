@@ -10,6 +10,7 @@ import {
   Button,
   Divider,
   CircularProgress,
+  Paper,
 } from "@mui/material";
 import { Navigate } from "react-router-dom";
 
@@ -18,10 +19,13 @@ const Signup = () => {
   const { isLoaded, signUp } = useSignUp();
   const clerk = useClerk();
   const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
+  const [loading, setLoading] = React.useState(false);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!isLoaded) return;
+
+    setLoading(true);
 
     const data = new FormData(event.currentTarget);
     const firstName = data.get("firstName") as string;
@@ -42,6 +46,7 @@ const Signup = () => {
         window.location.assign("/");
       } else {
         console.log("Additional steps required:", result);
+        setLoading(false);
       }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
@@ -49,16 +54,19 @@ const Signup = () => {
       setErrorMessage(
         err.errors?.[0]?.message || err.message || "Sign-up failed"
       );
+      setLoading(false);
     }
   };
 
   const handleGoogleSignUp = async () => {
     if (!isLoaded) return;
 
+    setLoading(true);
+
     try {
       await signUp.authenticateWithRedirect({
         strategy: "oauth_google",
-        redirectUrl: "/", // start of OAuth flow
+        redirectUrl: "/",
         redirectUrlComplete: "/dashboard",
       });
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -67,6 +75,7 @@ const Signup = () => {
       setErrorMessage(
         err.errors?.[0]?.message || err.message || "Google sign-up failed"
       );
+      setLoading(false);
     }
   };
 
@@ -74,7 +83,7 @@ const Signup = () => {
     return <Navigate to="/" />;
   }
 
-  if (!isLoaded) {
+  if (!isLoaded || loading) {
     return (
       <Box
         sx={{
@@ -83,16 +92,17 @@ const Signup = () => {
           justifyContent: "center",
           alignItems: "center",
           bgcolor: "background.default",
+          flexDirection: "column",
         }}
       >
         <CircularProgress />
-        <Typography sx={{ ml: 2 }}>Loading...</Typography>
+        <Typography sx={{ mt: 2 }}>Processing...</Typography>
       </Box>
     );
   }
 
   return (
-    <Container maxWidth="xs">
+    <Container>
       <Box
         sx={{
           marginTop: 8,
@@ -101,17 +111,20 @@ const Signup = () => {
           alignItems: "center",
         }}
       >
-        <Typography component="h1" variant="h5">
-          Sign Up
-        </Typography>
-
-        {errorMessage && (
-          <Alert severity="error" sx={{ mt: 2, width: "100%" }}>
-            {errorMessage}
-          </Alert>
-        )}
-
-        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
+        <Paper
+          elevation={4}
+          component="form"
+          onSubmit={handleSubmit}
+          sx={{ mt: 3, width: { xs: "90%", md: "75%" }, padding: 4 }}
+        >
+          {errorMessage && (
+            <Alert severity="error" sx={{ mt: 2, width: "100%" }}>
+              {errorMessage}
+            </Alert>
+          )}
+          <Typography component="h1" variant="h5" textAlign="center" mb={3}>
+            Sign Up
+          </Typography>
           <Stack spacing={2}>
             <TextField name="firstName" label="First Name" required fullWidth />
             <TextField name="lastName" label="Last Name" required fullWidth />
@@ -134,24 +147,25 @@ const Signup = () => {
             </Button>
           </Stack>
 
-          <Box sx={{ mt: 3 }}>
-            <div id="clerk-captcha"></div>
+          <Divider sx={{ my: 3 }}>
+            <Typography>OR</Typography>
+          </Divider>
+
+          <Button
+            fullWidth
+            variant="outlined"
+            onClick={handleGoogleSignUp}
+            sx={{ textTransform: "none" }}
+          >
+            Sign up with Google
+          </Button>
+
+          <Box sx={{ mt: 2, textAlign: "center" }}>
+            <Button href="/login">Already have an account? Sign In</Button>
           </Box>
-        </Box>
-
-        <Divider sx={{ my: 3 }}>OR</Divider>
-
-        <Button
-          fullWidth
-          variant="outlined"
-          onClick={handleGoogleSignUp}
-          sx={{ textTransform: "none" }}
-        >
-          Sign up with Google
-        </Button>
-
-        <Box sx={{ mt: 2, textAlign: "center" }}>
-          <Button href="/login">Already have an account? Sign In</Button>
+        </Paper>
+        <Box sx={{ mt: 3 }}>
+          <div id="clerk-captcha"></div>
         </Box>
       </Box>
     </Container>
