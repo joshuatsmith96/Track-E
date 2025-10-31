@@ -1,4 +1,4 @@
-import { Box, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 import type { ReactNode } from "react";
 import DashMenu from "./parts/DashMenu";
 import DashBar from "./parts/DashBar";
