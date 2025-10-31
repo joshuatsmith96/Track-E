@@ -1,7 +1,11 @@
-import { Button } from "@mui/material";
+import { Button, Box } from "@mui/material";
 import { dashConfig } from "./DashboardMenu/dashConfig";
 
-const CreateBoardButton = () => {
+type CreateBoardButtonType = {
+  showWords?: boolean;
+};
+
+const CreateBoardButton = ({ showWords }: CreateBoardButtonType) => {
   return (
     <Button
       variant="contained"
@@ -10,7 +14,8 @@ const CreateBoardButton = () => {
         width: "100%",
       }}
     >
-      Create Board +
+      <Box sx={{ display: !showWords ? "inherit" : "none" }}>Create Board</Box>
+      &nbsp;+
     </Button>
   );
 };

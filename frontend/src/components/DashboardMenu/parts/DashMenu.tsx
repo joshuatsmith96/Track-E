@@ -1,8 +1,9 @@
-import { Stack, Typography, Box } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import MenuOption from "./MenuOption";
 import { dashConfig } from "../dashConfig";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 import { useRef, useState } from "react";
+import SlotContainer from "./SlotContainer";
 
 const DashMenu = () => {
   const Icon = dashConfig.dashboardIcon;
@@ -38,6 +39,7 @@ const DashMenu = () => {
         gap: 3,
         transition: "200ms",
         position: "relative",
+        alignItems: open ? "center" : "start",
       }}
     >
       <Stack
@@ -65,6 +67,7 @@ const DashMenu = () => {
       <Stack
         direction={"row"}
         alignItems={"center"}
+        justifyContent={open ? "center" : "left"}
         gap={1}
         color={dashConfig.styles.titleColor}
       >
@@ -73,26 +76,29 @@ const DashMenu = () => {
           variant="h6"
           sx={{
             fontWeight: "bold",
+            display: open ? "none" : "inherit",
             gap: 1,
           }}
         >
           {dashConfig.dashboardName}
         </Typography>
       </Stack>
-      {/* Slot 1 location */}
-      <Box width={"100%"}>
-        <Slot1Component />
-      </Box>
-      <Stack>
+      <SlotContainer slot={1}>
+        <Slot1Component showWords={open} />
+      </SlotContainer>
+      <Stack
+        direction={"column"}
+        sx={{ justifyContent: "center", alignItems: "center" }}
+      >
         {Links.map((link) => (
-          <MenuOption to={link.to} icon={link.icon}>
+          <MenuOption to={link.to} icon={link.icon} showWords={open}>
             {link.name}
           </MenuOption>
         ))}
       </Stack>
-      <Box sx={{ width: "89%", position: "absolute", bottom: 10 }}>
-        <Slot1Component />
-      </Box>
+      <SlotContainer slot={2}>
+        <Slot1Component showWords={open} />
+      </SlotContainer>
     </Stack>
   );
 };

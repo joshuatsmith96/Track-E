@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import type { ReactNode } from "react";
-import Button from "@mui/material/Button";
+import { Box, Button } from "@mui/material";
 import type { SvgIconComponent } from "@mui/icons-material";
 import { dashConfig } from "../dashConfig";
 
@@ -8,16 +8,16 @@ type MenuOptionType = {
   children: ReactNode;
   to: string;
   icon: SvgIconComponent;
+  showWords: boolean;
 };
 
-const MenuOption = ({ children, to, icon }: MenuOptionType) => {
+const MenuOption = ({ children, to, icon, showWords }: MenuOptionType) => {
   const Icon = icon;
   return (
     <NavLink to={to} end style={{ textDecoration: "none", width: "100%" }}>
       {({ isActive }) => (
         <Button
           sx={{
-            width: "100%",
             fontSize: 18,
             color: isActive
               ? dashConfig.styles.activeLinkColor
@@ -31,12 +31,13 @@ const MenuOption = ({ children, to, icon }: MenuOptionType) => {
             "&:hover": {
               backgroundColor: dashConfig.styles.linkHover,
             },
-            justifyContent: "start",
             gap: 2,
           }}
         >
           <Icon />
-          {children}
+          <Box sx={{ display: !showWords ? "inherit" : "none" }}>
+            {children}
+          </Box>
         </Button>
       )}
     </NavLink>
