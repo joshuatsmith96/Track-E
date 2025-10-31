@@ -1,11 +1,12 @@
 import { Stack } from "@mui/material";
 import UserCircle from "./UserCircle";
+import { dashConfig } from "../dashConfig";
 
 const DashBar = () => {
   return (
     <Stack
       sx={{
-        backgroundColor: "white",
+        backgroundColor: dashConfig.styles.menuBarBg,
         width: "100%",
         height: "70px",
         justifyContent: "center",

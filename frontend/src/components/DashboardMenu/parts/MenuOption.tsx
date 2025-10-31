@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import type { ReactNode } from "react";
 import Button from "@mui/material/Button";
 import type { SvgIconComponent } from "@mui/icons-material";
+import { dashConfig } from "../dashConfig";
 
 type MenuOptionType = {
   children: ReactNode;
@@ -18,7 +19,9 @@ const MenuOption = ({ children, to, icon }: MenuOptionType) => {
           sx={{
             width: "100%",
             fontSize: 18,
-            color: isActive ? "primary" : "black",
+            color: isActive
+              ? dashConfig.styles.activeLinkColor
+              : dashConfig.styles.normalLinkColor,
             borderRadius: 2,
             px: 2,
             py: 1,

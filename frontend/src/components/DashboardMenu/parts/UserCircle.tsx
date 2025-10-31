@@ -1,6 +1,7 @@
 import { Stack, Typography } from "@mui/material";
 import { UserButton } from "@clerk/clerk-react";
 import { useUser } from "@clerk/clerk-react";
+import { dashConfig } from "../dashConfig";
 
 const UserCircle = () => {
   const { user } = useUser();
@@ -8,7 +9,6 @@ const UserCircle = () => {
   return (
     <Stack
       sx={{
-        backgroundColor: "white",
         height: "50px",
         alignItems: "center",
         justifyContent: "right",
@@ -17,11 +17,16 @@ const UserCircle = () => {
       }}
       direction="row"
     >
-      <Typography>
+      <Typography color={dashConfig.styles.menuBarColor}>
         Welcome <strong>{`${user?.firstName} ${user?.lastName}!`}</strong>
       </Typography>
       <UserButton
-        appearance={{ elements: { userButtonAvatarBox: "w-20 h-20" } }}
+        appearance={{
+          elements: {
+            userButtonAvatarBox: "w-20 h-20",
+            userButtonBox: "white-border-user-button",
+          },
+        }}
       />
     </Stack>
   );
