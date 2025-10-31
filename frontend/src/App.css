@@ -2,3 +2,12 @@
     padding: 0px;
     margin: 0px;
 }
+
+body{
+    background-color: rgb(241, 247, 253);
+}
+
+.white-border-user-button{
+    border: 2px solid #6464fd;
+    border-radius: 100px;
+}

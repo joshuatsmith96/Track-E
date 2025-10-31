@@ -1,5 +1,5 @@
 const Boards = () => {
-  return <h1>All Boards Page</h1>;
+  return <h1></h1>;
 };
 
 export default Boards;
