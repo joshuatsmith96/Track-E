@@ -41,11 +41,15 @@ export const dashConfig: DashConfigType = {
     menuItemColorSecondary: "white",
     menuBarBg: "white",
     menuBarColor: "black",
-    activeLinkColor: "#a4a4ffff",
+    activeLinkColor: "#7171ffff",
     normalLinkColor: "#b4b4ffff",
     linkHover: "#d4d4ff33",
   },
-  links: [{ name: "Dashboard", to: "/", icon: DashboardIcon }],
+  links: [
+    { name: "Dashboard", to: "/", icon: DashboardIcon },
+    { name: "Test 1", to: "/test1", icon: DashboardIcon },
+    { name: "Test 2", to: "/test2", icon: DashboardIcon },
+    { name: "Test 3", to: "/test3", icon: DashboardIcon },
+  ],
   slot1: CreateBoardButton,
-  slot2: CreateBoardButton,
 };

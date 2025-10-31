@@ -14,22 +14,35 @@ type MenuOptionType = {
 const MenuOption = ({ children, to, icon, showWords }: MenuOptionType) => {
   const Icon = icon;
   return (
-    <NavLink to={to} end style={{ textDecoration: "none", width: "100%" }}>
+    <NavLink
+      to={to}
+      end
+      style={{
+        textDecoration: "none",
+        width: "100%",
+      }}
+    >
       {({ isActive }) => (
         <Button
           sx={{
+            width: "100%",
+            display: "flex",
+            justifyContent: showWords ? "center" : "start",
             fontSize: 18,
             color: isActive
               ? dashConfig.styles.activeLinkColor
               : dashConfig.styles.normalLinkColor,
-            borderRadius: 2,
+            ml: !showWords ? (isActive ? 2 : "") : "",
+            borderRadius: 0,
             px: 2,
             py: 1,
-            fontWeight: isActive ? 600 : 400,
+            fontWeight: !showWords ? (isActive ? 600 : 200) : "",
             textTransform: "none",
-            transition: "background-color 0.3s",
+            transition: "0.3s",
             "&:hover": {
+              borderRadius: 2,
               backgroundColor: dashConfig.styles.linkHover,
+              ml: !showWords ? (isActive ? 3 : 1) : "",
             },
             gap: 2,
           }}

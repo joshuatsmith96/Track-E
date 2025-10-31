@@ -40,7 +40,7 @@ const DashMenu = () => {
         gap: 3,
         transition: "200ms",
         position: "relative",
-        alignItems: open ? "center" : "start",
+        alignItems: "center",
       }}
     >
       <Stack
@@ -89,7 +89,9 @@ const DashMenu = () => {
       </SlotContainer>
       <Stack
         direction={"column"}
-        sx={{ justifyContent: "center", alignItems: "center" }}
+        sx={{
+          width: open ? "unset" : "100%",
+        }}
       >
         {Links.map((link) => (
           <MenuOption to={link.to} icon={link.icon} showWords={open}>
