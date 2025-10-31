@@ -2,12 +2,14 @@ import { Stack, Typography } from "@mui/material";
 import MenuOption from "./MenuOption";
 import { dashConfig } from "../dashConfig";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import SlotContainer from "./SlotContainer";
 
 const DashMenu = () => {
   const Icon = dashConfig.dashboardIcon;
   const Links = dashConfig.links;
+  const currentWidth = window.innerWidth;
+  console.log("CURRENT WIDTH:", currentWidth);
   const Slot1Component = dashConfig.slot1 || null;
   const Slot2Component = dashConfig.slot2 || null;
 
@@ -19,6 +21,7 @@ const DashMenu = () => {
 
   const [open, setOpen] = useState(false);
   const [menuSize, setMenuSize] = useState(sizes.open);
+  const [toggled, setToggled] = useState(false);
 
   const toggleMenuSize = () => {
     if (menuSize === sizes.open) {
@@ -29,6 +32,20 @@ const DashMenu = () => {
       setOpen(false);
     }
   };
+
+  window.addEventListener("resize", function () {
+    const width = window.innerWidth;
+    if (width < 1100 && !toggled) {
+      toggleMenuSize();
+      setToggled(true);
+    }
+  });
+
+  useEffect(() => {
+    if (currentWidth < 1100) {
+      toggleMenuSize();
+    }
+  }, []);
 
   return (
     <Stack
