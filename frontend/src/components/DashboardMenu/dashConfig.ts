@@ -1,5 +1,6 @@
 import PlaylistAddCircleIcon from "@mui/icons-material/PlaylistAddCircle";
 import DashboardIcon from "@mui/icons-material/Dashboard";
+import CreateBoardButton from "../CreateBoardButton";
 
 export const dashConfig = {
   dashboardName: "Track-E",
@@ -14,6 +15,8 @@ export const dashConfig = {
     menuBarColor: "black",
     activeLinkColor: "#a4a4ffff",
     normalLinkColor: "#b4b4ffff",
+    linkHover: "#d4d4ff33",
   },
   links: [{ name: "Dashboard", to: "/", icon: DashboardIcon }],
+  slot1: CreateBoardButton,
 };

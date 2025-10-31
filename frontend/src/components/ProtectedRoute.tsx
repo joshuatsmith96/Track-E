@@ -4,15 +4,17 @@ import { Navigate } from "react-router-dom";
 import Dashboard from "./DashboardMenu";
 
 const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
-  const { isSignedIn } = useUser();
+  const { isSignedIn, isLoaded } = useUser();
+
+  if (!isLoaded) {
+    return <div>Loading...</div>;
+  }
 
   if (!isSignedIn) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/login" replace />;
   }
 
-  if (isSignedIn) {
-    return <Dashboard>{children}</Dashboard>;
-  }
+  return <Dashboard>{children}</Dashboard>;
 };
 
 export default ProtectedRoute;

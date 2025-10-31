@@ -29,7 +29,7 @@ const MenuOption = ({ children, to, icon }: MenuOptionType) => {
             textTransform: "none",
             transition: "background-color 0.3s",
             "&:hover": {
-              backgroundColor: "action.hover",
+              backgroundColor: dashConfig.styles.linkHover,
             },
             justifyContent: "start",
             gap: 2,
