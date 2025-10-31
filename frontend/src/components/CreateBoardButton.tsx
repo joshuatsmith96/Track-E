@@ -1,7 +1,7 @@
 import { Button, Box } from "@mui/material";
 import { dashConfig } from "./DashboardMenu/dashConfig";
 
-type CreateBoardButtonType = {
+export type CreateBoardButtonType = {
   showWords?: boolean;
 };
 

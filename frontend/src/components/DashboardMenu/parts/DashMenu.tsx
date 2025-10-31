@@ -8,7 +8,8 @@ import SlotContainer from "./SlotContainer";
 const DashMenu = () => {
   const Icon = dashConfig.dashboardIcon;
   const Links = dashConfig.links;
-  const Slot1Component = dashConfig.slot1;
+  const Slot1Component = dashConfig.slot1 || null;
+  const Slot2Component = dashConfig.slot2 || null;
 
   const menuRef = useRef(null);
   const sizes = {
@@ -84,7 +85,7 @@ const DashMenu = () => {
         </Typography>
       </Stack>
       <SlotContainer slot={1}>
-        <Slot1Component showWords={open} />
+        {Slot1Component ? <Slot1Component showWords={open} /> : ""}
       </SlotContainer>
       <Stack
         direction={"column"}
@@ -97,7 +98,7 @@ const DashMenu = () => {
         ))}
       </Stack>
       <SlotContainer slot={2}>
-        <Slot1Component showWords={open} />
+        {Slot2Component ? <Slot2Component /> : ""}
       </SlotContainer>
     </Stack>
   );
