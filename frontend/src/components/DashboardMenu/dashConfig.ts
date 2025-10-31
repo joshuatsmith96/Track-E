@@ -8,16 +8,16 @@ export type DashConfigType = {
   dashboardName: string;
   dashboardIcon: SvgIconComponent;
   styles: {
-    titleColor: string;
-    menuBg: string;
-    menuItemColorPrimary: string;
-    menuItemColorPrimaryHover: string;
-    menuItemColorSecondary: string;
-    menuBarBg: string;
-    menuBarColor: string;
-    activeLinkColor: string;
-    normalLinkColor: string;
-    linkHover: string;
+    titleColor?: string;
+    menuBg?: string;
+    menuItemColorPrimary?: string;
+    menuItemColorPrimaryHover?: string;
+    menuItemColorSecondary?: string;
+    menuBarBg?: string;
+    menuBarColor?: string;
+    activeLinkColor?: string;
+    normalLinkColor?: string;
+    linkHover?: string;
   };
   links: {
     name: string;

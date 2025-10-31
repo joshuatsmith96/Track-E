@@ -34,7 +34,7 @@ const DashMenu = () => {
     <Stack
       ref={menuRef}
       sx={{
-        backgroundColor: dashConfig.styles.menuBg,
+        backgroundColor: dashConfig.styles.menuBg || "white",
         width: menuSize,
         padding: 2,
         gap: 3,
@@ -50,8 +50,8 @@ const DashMenu = () => {
         sx={{
           position: "absolute",
           right: -20,
-          bgcolor: dashConfig.styles.menuItemColorPrimary,
-          color: dashConfig.styles.menuItemColorSecondary,
+          bgcolor: dashConfig.styles.menuItemColorPrimary || "primary.main",
+          color: dashConfig.styles.menuItemColorSecondary || "white",
           px: 1,
           py: 1,
           transform: open ? "rotate(180deg)" : "",
@@ -70,7 +70,7 @@ const DashMenu = () => {
         alignItems={"center"}
         justifyContent={open ? "center" : "left"}
         gap={1}
-        color={dashConfig.styles.titleColor}
+        color={dashConfig.styles.titleColor || "black"}
       >
         <Icon />
         <Typography
