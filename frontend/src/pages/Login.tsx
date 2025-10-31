@@ -98,7 +98,7 @@ const Login = () => {
           alignItems: "center",
           padding: 3,
           width: {
-            md: "60%",
+            md: "50%",
             xs: "90%",
           },
         }}

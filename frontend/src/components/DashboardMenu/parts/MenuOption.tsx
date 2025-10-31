@@ -23,6 +23,9 @@ const MenuOption = ({ children, to, icon, showWords }: MenuOptionType) => {
               ? dashConfig.styles.activeLinkColor
               : dashConfig.styles.normalLinkColor,
             borderRadius: 2,
+            textDecoration: "underline",
+            width: "100%",
+            textUnderlineOffset: 10,
             px: 2,
             py: 1,
             fontWeight: isActive ? 600 : 400,
