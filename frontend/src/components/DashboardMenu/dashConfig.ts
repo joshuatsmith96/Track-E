@@ -1,8 +1,36 @@
 import PlaylistAddCircleIcon from "@mui/icons-material/PlaylistAddCircle";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import CreateBoardButton from "../CreateBoardButton";
+import type { SvgIconComponent } from "@mui/icons-material";
+import type { ComponentType } from "react";
 
-export const dashConfig = {
+export type DashConfigType = {
+  dashboardName: string;
+  dashboardIcon: SvgIconComponent;
+  styles: {
+    titleColor: string;
+    menuBg: string;
+    menuItemColorPrimary: string;
+    menuItemColorPrimaryHover: string;
+    menuItemColorSecondary: string;
+    menuBarBg: string;
+    menuBarColor: string;
+    activeLinkColor: string;
+    normalLinkColor: string;
+    linkHover: string;
+  };
+  links: {
+    name: string;
+    to: string;
+    icon: SvgIconComponent;
+  }[];
+  // eslint-disable-next-line
+  slot1?: ComponentType<any>;
+  // eslint-disable-next-line
+  slot2?: ComponentType<any>;
+};
+
+export const dashConfig: DashConfigType = {
   dashboardName: "Track-E",
   dashboardIcon: PlaylistAddCircleIcon,
   styles: {
@@ -19,4 +47,5 @@ export const dashConfig = {
   },
   links: [{ name: "Dashboard", to: "/", icon: DashboardIcon }],
   slot1: CreateBoardButton,
+  slot2: CreateBoardButton,
 };
