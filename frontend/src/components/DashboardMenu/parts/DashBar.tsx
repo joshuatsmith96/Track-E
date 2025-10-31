@@ -6,7 +6,7 @@ const DashBar = () => {
   return (
     <Stack
       sx={{
-        backgroundColor: dashConfig.styles.menuBarBg,
+        backgroundColor: dashConfig.styles.menuBarBg || "white",
         width: "100%",
         height: "70px",
         justifyContent: "center",
