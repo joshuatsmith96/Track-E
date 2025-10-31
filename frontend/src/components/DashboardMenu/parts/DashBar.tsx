@@ -1,10 +1,18 @@
-import { Box, Typography } from "@mui/material";
+import { Stack } from "@mui/material";
+import UserCircle from "./UserCircle";
 
 const DashBar = () => {
   return (
-    <Box sx={{ backgroundColor: "white", width: "100%" }}>
-      <Typography>Dash Menu</Typography>
-    </Box>
+    <Stack
+      sx={{
+        backgroundColor: "white",
+        width: "100%",
+        height: "70px",
+        justifyContent: "center",
+      }}
+    >
+      <UserCircle />
+    </Stack>
   );
 };
 

@@ -1,8 +1,10 @@
 import { Stack, Typography, Button } from "@mui/material";
 import MenuOption from "./MenuOption";
-import PlaylistAddCircleIcon from "@mui/icons-material/PlaylistAddCircle";
+import { dashConfig } from "../dashConfig";
 
 const DashMenu = () => {
+  const Icon = dashConfig.dashboardIcon;
+  const Links = dashConfig.links;
   return (
     <Stack
       sx={{
@@ -13,7 +15,7 @@ const DashMenu = () => {
       }}
     >
       <Stack direction={"row"} alignItems={"center"} gap={1}>
-        <PlaylistAddCircleIcon />
+        <Icon />
         <Typography
           variant="h6"
           sx={{
@@ -21,13 +23,16 @@ const DashMenu = () => {
             gap: 1,
           }}
         >
-          Track-E
+          {dashConfig.dashboardName}
         </Typography>
       </Stack>
       <Button variant="contained">Create Board +</Button>
       <Stack>
-        <MenuOption to="/">Dashboard</MenuOption>
-        <MenuOption to="/test">Test</MenuOption>
+        {Links.map((link) => (
+          <MenuOption to={link.to} icon={link.icon}>
+            {link.name}
+          </MenuOption>
+        ))}
       </Stack>
     </Stack>
   );
