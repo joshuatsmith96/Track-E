@@ -5,7 +5,6 @@ import { dashConfig } from "../dashConfig";
 
 const UserCircle = () => {
   const { user } = useUser();
-  console.log(user);
   return (
     <Stack
       sx={{

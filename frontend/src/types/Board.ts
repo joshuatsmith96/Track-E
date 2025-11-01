@@ -4,6 +4,7 @@ export interface Board {
   _id: string;
   board_id: string;
   board_name: string;
+  created_by: string;
   board_creation_date: string;
   board_updated_date: string;
   lists: List[];
