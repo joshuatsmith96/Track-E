@@ -46,10 +46,8 @@ export const dashConfig: DashConfigType = {
     linkHover: "#d4d4ff33",
   },
   links: [
-    { name: "Dashboard", to: "/", icon: DashboardIcon },
-    { name: "Test 1", to: "/test1", icon: DashboardIcon },
-    { name: "Test 2", to: "/test2", icon: DashboardIcon },
-    { name: "Test 3", to: "/test3", icon: DashboardIcon },
+    { name: "My Boards", to: "/", icon: DashboardIcon },
+    { name: "Completed Boards", to: "/test1", icon: DashboardIcon },
   ],
   slot1: CreateBoardButton,
 };

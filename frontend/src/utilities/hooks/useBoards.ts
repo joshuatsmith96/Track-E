@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useApi } from "../api";
+import type { Board } from "../../types/Board";
 
 const useBoards = () => {
-  const [boards, setBoards] = useState();
+  const [boards, setBoards] = useState<Board[]>();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const { request } = useApi();

@@ -9,7 +9,6 @@ const DashMenu = () => {
   const Icon = dashConfig.dashboardIcon;
   const Links = dashConfig.links;
   const currentWidth = window.innerWidth;
-  console.log("CURRENT WIDTH:", currentWidth);
   const Slot1Component = dashConfig.slot1 || null;
   const Slot2Component = dashConfig.slot2 || null;
 
