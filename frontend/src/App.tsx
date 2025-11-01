@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import Registration from "./pages/Registration";
 import Boards from "./pages/Board";
 import ErrorPage from "./pages/ErrorPage";
+import ArchivePage from "./pages/Archive";
 
 export default function App() {
   return (
@@ -19,9 +20,7 @@ export default function App() {
         <Route element={<ProtectedRoute />}>
           <Route element={<Dashboard />}>
             <Route path="/" element={<Boards />} />
-            <Route path="/test1" element={<Boards />} />
-            <Route path="/test2" element={<Boards />} />
-            <Route path="/test3" element={<Boards />} />
+            <Route path="/board-archive" element={<ArchivePage />} />
           </Route>
         </Route>
 
