@@ -4,7 +4,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Dashboard from "./components/DashboardMenu";
 import Login from "./pages/Login";
 import Registration from "./pages/Registration";
-import Boards from "./pages/Board";
+import Boards from "./pages/AllBoards";
 import ErrorPage from "./pages/ErrorPage";
 import ArchivePage from "./pages/Archive";
 
