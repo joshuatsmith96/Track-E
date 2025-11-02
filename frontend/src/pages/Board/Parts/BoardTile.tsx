@@ -1,5 +1,6 @@
 import { Stack, Box, Typography } from "@mui/material";
 import { dashConfig } from "../../../components/DashboardMenu/dashConfig";
+import { formatToMDY } from "../../../utilities/dateTranslate";
 
 export type BoardTileType = {
   title: string;
@@ -18,14 +19,17 @@ const BoardTile = ({ title, createdBy, lastEdited }: BoardTileType) => {
         color: "white",
         borderRadius: 2,
         justifyContent: "space-between",
+        border: `solid 3px ${dashConfig.styles.menuItemColorPrimary}`,
       }}
     >
       <Box>
-        <Typography>{title}</Typography>
-        <Typography>
+        <Typography variant="h6">{title}</Typography>
+        <Typography fontSize={"14px"}>
           Created by <strong>{createdBy}</strong>
         </Typography>
-        <Typography>Last Edited: {lastEdited}</Typography>
+        <Typography fontSize={"14px"}>
+          Last Edited: {formatToMDY(lastEdited)}
+        </Typography>
       </Box>
       <Typography>View Board</Typography>
     </Stack>

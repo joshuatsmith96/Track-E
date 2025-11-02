@@ -1,6 +1,6 @@
 import PlaylistAddCircleIcon from "@mui/icons-material/PlaylistAddCircle";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import CreateBoardButton from "../CreateBoardButton";
+import { NavCreateBoardButton } from "../CreateBoardButton";
 import { type SvgIconComponent } from "@mui/icons-material";
 import type { ComponentType } from "react";
 import InventoryIcon from "@mui/icons-material/Inventory";
@@ -50,5 +50,5 @@ export const dashConfig: DashConfigType = {
     { name: "My Boards", to: "/", icon: DashboardIcon },
     { name: "Board Archive", to: "/board-archive", icon: InventoryIcon },
   ],
-  slot1: CreateBoardButton,
+  slot1: NavCreateBoardButton,
 };
