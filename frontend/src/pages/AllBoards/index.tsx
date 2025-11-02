@@ -8,6 +8,8 @@ import type { Board } from "../../types/Board";
 
 const AllBoards = () => {
   const { boards: fetchedBoards, loading, error } = useBoards();
+
+  console.log("BOARDS", fetchedBoards);
   const [boards, setBoards] = useState<Board[] | undefined>(fetchedBoards);
   const [open, setOpen] = useState(false);
   const { createBoard } = useCreateBoard();

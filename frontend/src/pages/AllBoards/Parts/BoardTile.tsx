@@ -11,6 +11,7 @@ import { dashConfig } from "../../../components/DashboardMenu/dashConfig";
 import { formatToMDY } from "../../../utilities/dateTranslate";
 import { useState } from "react";
 import useDeleteBoard from "../../../utilities/hooks/useDeleteBoard";
+import { NavLink } from "react-router-dom";
 
 export type BoardTileType = {
   title: string;
@@ -97,7 +98,7 @@ const BoardTile = ({
         </Typography>
       </Box>
 
-      <Typography>View Board</Typography>
+      <NavLink to={`/board/${boardID}`}>View Board</NavLink>
     </Stack>
   );
 };
