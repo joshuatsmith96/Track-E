@@ -22,7 +22,7 @@ const Board = () => {
       >
         Back to Boards
       </Button>
-      <Typography variant="h5">
+      <Typography variant="h5" sx={{ mb: 5 }}>
         <strong>{currentBoard?.board_name}</strong>
       </Typography>
       <Stack>

@@ -12,7 +12,7 @@ const BoardList = ({ name, listItems }: ListComponentType) => {
   return (
     <Paper sx={{ borderRadius: 2, width: "305px", padding: 2 }}>
       <Stack direction={"row"} sx={{ justifyContent: "space-between", mb: 3 }}>
-        <Typography>{name}</Typography>
+        <Typography fontWeight={600}>{name}</Typography>
         ...
       </Stack>
       <Stack>
