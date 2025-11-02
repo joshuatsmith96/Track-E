@@ -1,55 +1,37 @@
-import { Stack, Typography } from "@mui/material";
+import { Stack, Typography, Button } from "@mui/material";
+import { useParams } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import useBoards from "../../utilities/hooks/useBoards";
-import CreateBoardDialog from "../../components/CreateBoardDialog";
-import useCreateBoard from "../../utilities/hooks/useCreateBoard";
-import { useState, useEffect } from "react";
-import BoardContainer from "./Parts/BoardContainer";
-import type { Board } from "../../types/Board";
+import BoardList from "./parts/BoardList";
 
-const Boards = () => {
-  const { boards: fetchedBoards, loading, error } = useBoards();
-  const [boards, setBoards] = useState<Board[] | undefined>(fetchedBoards);
-  const [open, setOpen] = useState(false);
-  const { createBoard } = useCreateBoard();
+const Board = () => {
+  const { id } = useParams();
+  const { boards } = useBoards();
 
-  useEffect(() => {
-    setBoards(fetchedBoards);
-  }, [fetchedBoards]);
-
-  const handleCreate = async (name: string) => {
-    const newBoard = await createBoard(name);
-    if (newBoard) {
-      setBoards((prev) => (prev ? [newBoard, ...prev] : [newBoard]));
-      setOpen(false);
-    }
-  };
-
-  const handleDelete = (boardID: string) => {
-    setBoards((prev) => prev?.filter((b) => b.board_id !== boardID));
-  };
+  const currentBoard = boards?.filter((board) => board.board_id === id)[0];
+  const lists = currentBoard?.lists;
+  console.log(lists);
 
   return (
-    <Stack spacing={3}>
-      <CreateBoardDialog
-        open={open}
-        onClose={() => setOpen(false)}
-        onCreate={handleCreate}
-      />
-
-      <Typography variant="h5" fontWeight="bold">
-        My Boards
+    <Stack>
+      <Button
+        variant="outlined"
+        sx={{ width: "fit-content", mb: 4 }}
+        component={NavLink}
+        to="/"
+      >
+        Back to Boards
+      </Button>
+      <Typography variant="h5">
+        <strong>{currentBoard?.board_name}</strong>
       </Typography>
-
-      <BoardContainer
-        boards={boards}
-        onCreateClick={() => setOpen(true)}
-        onDelete={handleDelete}
-      />
-
-      {loading && <Typography>Loading boards...</Typography>}
-      {error && <Typography color="error">{error}</Typography>}
+      <Stack>
+        {lists?.map((list) => (
+          <BoardList name={list.list_name} listItems={list.list_items} />
+        ))}
+      </Stack>
     </Stack>
   );
 };
 
-export default Boards;
+export default Board;

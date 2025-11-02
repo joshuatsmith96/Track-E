@@ -4,7 +4,8 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Dashboard from "./components/DashboardMenu";
 import Login from "./pages/Login";
 import Registration from "./pages/Registration";
-import Boards from "./pages/Board";
+import AllBoards from "./pages/AllBoards";
+import Board from "./pages/Board";
 import ErrorPage from "./pages/ErrorPage";
 import ArchivePage from "./pages/Archive";
 
@@ -19,7 +20,8 @@ export default function App() {
         {/* Protected layout */}
         <Route element={<ProtectedRoute />}>
           <Route element={<Dashboard />}>
-            <Route path="/" element={<Boards />} />
+            <Route path="/" element={<AllBoards />} />
+            <Route path="/board/:id" element={<Board />} />
             <Route path="/board-archive" element={<ArchivePage />} />
           </Route>
         </Route>
