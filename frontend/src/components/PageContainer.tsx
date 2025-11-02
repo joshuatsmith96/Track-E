@@ -6,6 +6,6 @@ type PageContainerType = {
 };
 
 const PageContainer = ({ children }: PageContainerType) => {
-  return <Stack sx={{ px: 5, py: 3, overflowX: "scroll" }}>{children}</Stack>;
+  return <Stack sx={{ px: 5, py: 3, overflowY: "auto" }}>{children}</Stack>;
 };
 export default PageContainer;
