@@ -4,6 +4,7 @@ import AddIcon from "@mui/icons-material/Add";
 
 export type CreateBoardButtonType = {
   showWords?: boolean;
+  onClick?: () => void;
 };
 
 export const NavCreateBoardButton = ({ showWords }: CreateBoardButtonType) => {
@@ -21,9 +22,10 @@ export const NavCreateBoardButton = ({ showWords }: CreateBoardButtonType) => {
   );
 };
 
-export const MainCreateBoardButton = () => {
+export const MainCreateBoardButton = ({ onClick }: CreateBoardButtonType) => {
   return (
     <Stack
+      onClick={onClick}
       sx={{
         position: "relative",
         border: `solid 3px ${dashConfig.styles.menuItemColorPrimary}`,
