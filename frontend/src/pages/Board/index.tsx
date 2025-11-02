@@ -12,7 +12,6 @@ const Boards = () => {
   const [open, setOpen] = useState(false);
   const { createBoard } = useCreateBoard();
 
-  // Initialize local boards state when fetch completes
   useEffect(() => {
     setBoards(fetchedBoards);
   }, [fetchedBoards]);
@@ -23,6 +22,10 @@ const Boards = () => {
       setBoards((prev) => (prev ? [newBoard, ...prev] : [newBoard]));
       setOpen(false);
     }
+  };
+
+  const handleDelete = (boardID: string) => {
+    setBoards((prev) => prev?.filter((b) => b.board_id !== boardID));
   };
 
   return (
@@ -37,7 +40,11 @@ const Boards = () => {
         My Boards
       </Typography>
 
-      <BoardContainer boards={boards} onCreateClick={() => setOpen(true)} />
+      <BoardContainer
+        boards={boards}
+        onCreateClick={() => setOpen(true)}
+        onDelete={handleDelete}
+      />
 
       {loading && <Typography>Loading boards...</Typography>}
       {error && <Typography color="error">{error}</Typography>}
