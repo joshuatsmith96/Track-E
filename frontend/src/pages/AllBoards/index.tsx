@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import BoardContainer from "./Parts/BoardContainer";
 import type { Board } from "../../types/Board";
 
-const Boards = () => {
+const AllBoards = () => {
   const { boards: fetchedBoards, loading, error } = useBoards();
   const [boards, setBoards] = useState<Board[] | undefined>(fetchedBoards);
   const [open, setOpen] = useState(false);
@@ -52,4 +52,4 @@ const Boards = () => {
   );
 };
 
-export default Boards;
+export default AllBoards;
