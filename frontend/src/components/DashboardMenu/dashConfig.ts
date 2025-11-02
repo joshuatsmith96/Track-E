@@ -43,7 +43,7 @@ export const dashConfig: DashConfigType = {
     menuBarBg: "white",
     menuBarColor: "black",
     activeLinkColor: "#7171ffff",
-    normalLinkColor: "#b4b4ffff",
+    normalLinkColor: "#e3e3faff",
     linkHover: "#d4d4ff33",
   },
   links: [
