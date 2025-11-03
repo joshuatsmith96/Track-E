@@ -8,6 +8,7 @@ import CreateListDialog from "./parts/CreateListDialog";
 
 const Board = () => {
   const { id } = useParams();
+  const boardId: string | undefined = id != undefined ? id : "";
   const { boards } = useBoards();
   const { createList } = useCreateList();
 
@@ -43,6 +44,14 @@ const Board = () => {
     }
   };
 
+  const handleDeleteList = (listId: string) => {
+    setCurrentBoard((prev) =>
+      prev
+        ? { ...prev, lists: prev.lists?.filter((l) => l.list_id !== listId) }
+        : prev
+    );
+  };
+
   return (
     <Stack>
       <Button
@@ -71,9 +80,12 @@ const Board = () => {
       <Stack direction="row" gap={2} flexWrap="wrap">
         {currentBoard?.lists?.map((list) => (
           <BoardList
+            boardId={boardId}
+            listId={list.list_id}
             key={list.list_id}
             name={list.list_name}
             listItems={list.list_items}
+            onDelete={() => handleDeleteList(list.list_id)}
           />
         ))}
       </Stack>
