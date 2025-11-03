@@ -3,8 +3,14 @@ import { Outlet } from "react-router-dom";
 import DashMenu from "./parts/DashMenu";
 import DashBar from "./parts/DashBar";
 import PageContainer from "../PageContainer";
+import type { ReactNode } from "react";
 
-const Dashboard = () => {
+type DashboardType = {
+  children?: ReactNode;
+};
+
+const Dashboard = ({ children }: DashboardType) => {
+  console.log(children);
   return (
     <Stack direction="row" sx={{ width: "100%", height: "100vh" }}>
       <DashMenu />

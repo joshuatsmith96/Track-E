@@ -12,7 +12,11 @@ connectDB();
 const app = express();
 app.use(express.json());
 
-const allowedOrigins = ["http://localhost:5173"];
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://testing.joshuasportfolio.org/",
+  "https://track-e.joshuasportfolio.org/",
+];
 
 const corsOptions = {
   origin: function (origin, callback) {
