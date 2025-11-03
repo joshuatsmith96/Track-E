@@ -45,7 +45,7 @@ export const createBoard = async (req, res, next) => {
       lists: lists || [],
       board_creation_date: new Date(),
       board_updated_date: new Date(),
-      created_by: created_by, // <-- use the value from frontend
+      created_by: created_by,
       users: [clerkId],
     });
 
@@ -185,8 +185,8 @@ export const updateListInBoard = async (req, res, next) => {
 export const updateListItemInBoard = async (req, res, next) => {
   try {
     const clerkId = req.user.sub;
-    const { list_id, list_item_id } = req.params; // list and item IDs from URL
-    const { list_text, status, order_in_list } = req.body; // fields to update
+    const { list_id, list_item_id } = req.params;
+    const { list_text, status, order_in_list } = req.body;
 
     const board = await Board.findOne({
       board_id: req.params.board_id,
@@ -220,7 +220,7 @@ export const updateListItemInBoard = async (req, res, next) => {
 export const addListItemToBoard = async (req, res, next) => {
   try {
     const clerkId = req.user.sub;
-    const { list_id } = req.params; // get list_id from URL
+    const { list_id } = req.params;
     const { list_text, status, order_in_list } = req.body;
 
     const board = await Board.findOne({
