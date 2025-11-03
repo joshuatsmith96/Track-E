@@ -14,19 +14,22 @@ app.use(express.json());
 
 const allowedOrigins = ["http://localhost:5173"];
 
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-  })
-);
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  credentials: true,
+  optionsSuccessStatus: 200,
+};
 
-// Routes
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
+
 app.use("/api/users", userRoutes);
 app.use("/api/boards", boardRoutes);
 
