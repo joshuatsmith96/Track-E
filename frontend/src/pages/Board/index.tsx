@@ -1,10 +1,11 @@
-import { Stack, Typography, Button } from "@mui/material";
+import { Stack, Typography, Button, Box } from "@mui/material";
 import { useParams, NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
 import useBoards from "../../utilities/hooks/useBoards";
 import BoardList from "./parts/BoardList";
 import useCreateList from "../../utilities/hooks/useCreateList";
 import CreateListDialog from "./parts/CreateListDialog";
+import { dashConfig } from "../../components/DashboardMenu/dashConfig";
 
 const Board = () => {
   const { id } = useParams();
@@ -53,18 +54,23 @@ const Board = () => {
   };
 
   return (
-    <Stack>
+    <Stack
+      sx={{
+        width: "100%",
+      }}
+    >
       <Button
         variant="outlined"
-        sx={{ width: "fit-content", mb: 4 }}
+        sx={{
+          width: "fit-content",
+          mb: 4,
+          color: dashConfig.styles.menuItemColorPrimary,
+          borderColor: dashConfig.styles.menuItemColorPrimary,
+        }}
         component={NavLink}
         to="/"
       >
         Back to Boards
-      </Button>
-
-      <Button variant="contained" onClick={() => setOpen(true)} sx={{ mb: 2 }}>
-        Add New List
       </Button>
 
       <CreateListDialog
@@ -73,27 +79,51 @@ const Board = () => {
         onCreate={handleCreateList}
       />
 
-      <Typography variant="h5" sx={{ mb: 2 }}>
-        <strong>{currentBoard?.board_name}</strong>
-      </Typography>
+      <Stack direction="row" sx={{ justifyContent: "space-between", mb: 5 }}>
+        <Typography variant="h5" sx={{ mb: 2 }}>
+          <strong>{currentBoard?.board_name}</strong>
+        </Typography>
 
-      <Stack
-        direction="row"
-        gap={2}
-        justifyContent={"start"}
-        alignItems={"start"}
-      >
-        {currentBoard?.lists?.map((list) => (
-          <BoardList
-            boardId={boardId}
-            listId={list.list_id}
-            key={list.list_id}
-            name={list.list_name}
-            listItems={list.list_items}
-            onDelete={() => handleDeleteList(list.list_id)}
-          />
-        ))}
+        <Button
+          variant="contained"
+          onClick={() => setOpen(true)}
+          sx={{
+            mb: 2,
+            width: "300px",
+            bgcolor: dashConfig.styles.menuItemColorPrimary,
+            color: "white",
+          }}
+        >
+          Add New List
+        </Button>
       </Stack>
+
+      {currentBoard ? (
+        currentBoard?.lists.length > 0 ? (
+          <Stack
+            direction="row"
+            gap={2}
+            justifyContent={"start"}
+            alignItems={"start"}
+            flexWrap={"wrap"}
+          >
+            {currentBoard?.lists?.map((list) => (
+              <BoardList
+                boardId={boardId}
+                listId={list.list_id}
+                key={list.list_id}
+                name={list.list_name}
+                listItems={list.list_items}
+                onDelete={() => handleDeleteList(list.list_id)}
+              />
+            ))}
+          </Stack>
+        ) : (
+          <Typography>There are currently no lists in your board.</Typography>
+        )
+      ) : (
+        ""
+      )}
     </Stack>
   );
 };

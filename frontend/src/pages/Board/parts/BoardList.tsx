@@ -86,7 +86,8 @@ const BoardList = ({
       <Paper
         sx={{
           borderRadius: 2,
-          width: "305px",
+          width: "300px",
+          flexShrink: 0,
           height: "content-fit",
           padding: 2,
         }}
@@ -114,7 +115,7 @@ const BoardList = ({
           </div>
         </Stack>
 
-        <Stack>
+        <Stack gap={1}>
           {listItems?.map((item) => (
             <ListItem key={item.list_id} listItemText={item.list_text} />
           ))}
