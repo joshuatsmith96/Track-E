@@ -98,7 +98,13 @@ const BoardTile = ({
         </Typography>
       </Box>
 
-      <NavLink to={`/board/${boardID}`}>View Board</NavLink>
+      <Typography
+        component={NavLink}
+        to={`/board/${boardID}`}
+        sx={{ textDecoration: "none", color: "white", fontWeight: "bold" }}
+      >
+        View Board
+      </Typography>
     </Stack>
   );
 };

@@ -26,10 +26,10 @@ const useCreateBoard = () => {
       const response = await request({
         url: "/boards",
         method: "POST",
-        data: body, // <-- fixed here
+        data: body,
       });
 
-      return response.data as Board; // or response.data.data if your backend wraps it
+      return response.data as Board;
     } catch (err) {
       if (err instanceof Error) setError(err.message);
       else setError("An unknown error occurred");
