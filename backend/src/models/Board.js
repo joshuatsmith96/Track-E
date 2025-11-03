@@ -4,7 +4,7 @@ const listItemSchema = new mongoose.Schema(
   {
     list_id: {
       type: String,
-      required: true,
+      required: false,
       trim: true,
     },
     list_text: {
