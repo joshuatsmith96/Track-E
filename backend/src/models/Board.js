@@ -79,6 +79,11 @@ const boardSchema = new mongoose.Schema(
       required: true,
       default: Date.now,
     },
+    created_by: {
+      type: String,
+      required: true,
+      trim: true,
+    },
     lists: {
       type: [listSchema],
       default: [],

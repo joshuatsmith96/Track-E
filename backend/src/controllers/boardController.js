@@ -35,7 +35,7 @@ export const getBoardById = async (req, res, next) => {
 export const createBoard = async (req, res, next) => {
   try {
     const clerkId = req.user.sub;
-    const { board_name, lists } = req.body;
+    const { board_name, lists, created_by } = req.body;
 
     const board_id = uuidv4();
 
@@ -45,6 +45,7 @@ export const createBoard = async (req, res, next) => {
       lists: lists || [],
       board_creation_date: new Date(),
       board_updated_date: new Date(),
+      created_by: created_by, // <-- use the value from frontend
       users: [clerkId],
     });
 
