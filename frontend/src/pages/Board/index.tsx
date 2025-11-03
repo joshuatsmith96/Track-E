@@ -1,29 +1,45 @@
 import { Stack, Typography, Button } from "@mui/material";
-import { useParams } from "react-router-dom";
-import { NavLink } from "react-router-dom";
+import { useParams, NavLink } from "react-router-dom";
+import { useState, useEffect } from "react";
 import useBoards from "../../utilities/hooks/useBoards";
 import BoardList from "./parts/BoardList";
 import useCreateList from "../../utilities/hooks/useCreateList";
+import CreateListDialog from "./parts/CreateListDialog";
 
 const Board = () => {
   const { id } = useParams();
   const { boards } = useBoards();
+  const { createList } = useCreateList();
 
-  const { createList, loading, error } = useCreateList();
+  const [open, setOpen] = useState(false);
+  const [currentBoard, setCurrentBoard] = useState(
+    boards?.find((board) => board.board_id === id)
+  );
 
-  const currentBoard = boards?.filter((board) => board.board_id === id)[0];
-  const lists = currentBoard?.lists;
+  useEffect(() => {
+    setCurrentBoard(boards?.find((board) => board.board_id === id));
+  }, [boards, id]);
 
-  const handleCreateList = async () => {
-    const newList = await createList(id, {
-      list_name: "My New List",
+  const handleCreateList = async (name: string) => {
+    if (!currentBoard) return;
+
+    const newList = await createList(currentBoard.board_id, {
+      list_name: name,
       list_status: "NotStarted",
       list_items: [],
-      order_in_board: 3,
+      order_in_board: currentBoard.lists?.length ?? 0,
     });
 
     if (newList) {
-      console.log("List created:", newList);
+      setCurrentBoard((prev) =>
+        prev
+          ? {
+              ...prev,
+              lists: prev.lists ? [...prev.lists, newList] : [newList],
+            }
+          : prev
+      );
+      setOpen(false);
     }
   };
 
@@ -37,19 +53,28 @@ const Board = () => {
       >
         Back to Boards
       </Button>
-      <Button
-        variant="contained"
-        sx={{ width: "fit-content" }}
-        onClick={handleCreateList}
-      >
-        Add List
+
+      <Button variant="contained" onClick={() => setOpen(true)} sx={{ mb: 2 }}>
+        Add New List
       </Button>
-      <Typography variant="h5">
+
+      <CreateListDialog
+        open={open}
+        onClose={() => setOpen(false)}
+        onCreate={handleCreateList}
+      />
+
+      <Typography variant="h5" sx={{ mb: 2 }}>
         <strong>{currentBoard?.board_name}</strong>
       </Typography>
-      <Stack>
-        {lists?.map((list) => (
-          <BoardList name={list.list_name} listItems={list.list_items} />
+
+      <Stack direction="row" gap={2} flexWrap="wrap">
+        {currentBoard?.lists?.map((list) => (
+          <BoardList
+            key={list.list_id}
+            name={list.list_name}
+            listItems={list.list_items}
+          />
         ))}
       </Stack>
     </Stack>
