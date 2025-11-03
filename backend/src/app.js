@@ -14,8 +14,8 @@ app.use(express.json());
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://testing.joshuasportfolio.org/",
-  "https://track-e.joshuasportfolio.org/",
+  "https://testing.joshuasportfolio.org",
+  "https://track-e.joshuasportfolio.org",
 ];
 
 const corsOptions = {
