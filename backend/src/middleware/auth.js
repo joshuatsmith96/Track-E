@@ -8,7 +8,10 @@ export const requireAuth = async (req, res, next) => {
 
     const verifiedToken = await verifyToken(token, {
       jwtKey: process.env.CLERK_JWT_KEY,
-      authorizedParties: ["http://localhost:5173"],
+      authorizedParties: [
+        "http://localhost:5173",
+        "https://testing.joshuasportfolio.org",
+      ],
     });
 
     req.user = { sub: verifiedToken.sub };
