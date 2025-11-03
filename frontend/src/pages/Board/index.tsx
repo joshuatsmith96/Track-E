@@ -77,7 +77,12 @@ const Board = () => {
         <strong>{currentBoard?.board_name}</strong>
       </Typography>
 
-      <Stack direction="row" gap={2} flexWrap="wrap">
+      <Stack
+        direction="row"
+        gap={2}
+        justifyContent={"start"}
+        alignItems={"start"}
+      >
         {currentBoard?.lists?.map((list) => (
           <BoardList
             boardId={boardId}
