@@ -15,25 +15,21 @@ app.use(express.json());
 const allowedOrigins = [
   "http://localhost:5173",
   "https://testing.joshuasportfolio.org",
-  "https://track-e.joshuasportfolio.org",
 ];
 
-const corsOptions = {
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  credentials: true,
-  optionsSuccessStatus: 200,
-};
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+  })
+);
 
-app.use(cors(corsOptions));
-app.options("*", cors(corsOptions));
-
+// Routes
 app.use("/api/users", userRoutes);
 app.use("/api/boards", boardRoutes);
 
