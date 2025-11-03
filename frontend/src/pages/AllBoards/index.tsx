@@ -5,9 +5,12 @@ import useCreateBoard from "../../utilities/hooks/useCreateBoard";
 import { useState, useEffect } from "react";
 import BoardContainer from "./Parts/BoardContainer";
 import type { Board } from "../../types/Board";
+import { useUser } from "@clerk/clerk-react";
 
 const AllBoards = () => {
   const { boards: fetchedBoards, loading, error } = useBoards();
+  const { user } = useUser();
+  const fullName = user?.firstName + " " + user?.lastName;
 
   console.log("BOARDS", fetchedBoards);
   const [boards, setBoards] = useState<Board[] | undefined>(fetchedBoards);
@@ -19,7 +22,7 @@ const AllBoards = () => {
   }, [fetchedBoards]);
 
   const handleCreate = async (name: string) => {
-    const newBoard = await createBoard(name);
+    const newBoard = await createBoard(name, fullName);
     if (newBoard) {
       setBoards((prev) => (prev ? [newBoard, ...prev] : [newBoard]));
       setOpen(false);

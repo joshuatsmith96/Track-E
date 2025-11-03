@@ -10,9 +10,9 @@ const ListItem = ({ listItemText }: ListItemComponentType) => {
       direction={"row"}
       sx={{
         alignItems: "center",
-        bgcolor: "rgba(221, 249, 255, 0.93)",
+        bgcolor: "#dbdbfbff",
         borderRadius: 1,
-        padding: 1,
+        padding: 0.5,
       }}
     >
       <Checkbox />
