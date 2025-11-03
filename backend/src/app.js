@@ -12,10 +12,9 @@ connectDB();
 const app = express();
 app.use(express.json());
 
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://testing.joshuasportfolio.org",
-];
+const authorized = process.env.AUTHORIZED_PARTIES.split(",");
+
+const allowedOrigins = authorized || ["http://localhost:5173"];
 
 app.use(
   cors({
