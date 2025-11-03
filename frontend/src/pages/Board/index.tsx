@@ -1,4 +1,4 @@
-import { Stack, Typography, Button, Box } from "@mui/material";
+import { Stack, Typography, Button } from "@mui/material";
 import { useParams, NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
 import useBoards from "../../utilities/hooks/useBoards";
