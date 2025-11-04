@@ -12,7 +12,6 @@ const UserCircle = () => {
         alignItems: "center",
         justifyContent: "right",
         gap: 2,
-        mr: 3,
       }}
       direction="row"
     >

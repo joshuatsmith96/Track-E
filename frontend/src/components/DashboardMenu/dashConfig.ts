@@ -36,7 +36,7 @@ export const dashConfig: DashConfigType = {
   dashboardIcon: PlaylistAddCircleIcon,
   styles: {
     titleColor: "white",
-    menuBg: "rgba(32, 32, 32, 0.93)",
+    menuBg: "rgba(32, 32, 32, 1)",
     menuItemColorPrimary: "#7777ffff",
     menuItemColorPrimaryHover: "#4c4cc9ff",
     menuItemColorSecondary: "white",

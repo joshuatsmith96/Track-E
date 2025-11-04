@@ -5,7 +5,11 @@ import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 import { useEffect, useRef, useState } from "react";
 import SlotContainer from "./SlotContainer";
 
-const DashMenu = () => {
+type DashMenuType = {
+  visible: boolean;
+};
+
+const DashMenu = ({ visible }: DashMenuType) => {
   const Icon = dashConfig.dashboardIcon;
   const Links = dashConfig.links;
   const currentWidth = window.innerWidth;
@@ -57,6 +61,7 @@ const DashMenu = () => {
         transition: "200ms",
         position: "relative",
         alignItems: "center",
+        display: !visible ? "none" : "",
       }}
     >
       <Stack
