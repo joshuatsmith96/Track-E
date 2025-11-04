@@ -13,11 +13,7 @@ const bounce = keyframes`
   40% { transform: scale(1); }
 `;
 
-type LoadingScreenType = {
-  message: string;
-};
-
-const LoadingScreen = ({ message }: LoadingScreenType) => {
+const LoadingScreen = () => {
   return (
     <Box
       sx={{
@@ -68,7 +64,7 @@ const LoadingScreen = ({ message }: LoadingScreenType) => {
           letterSpacing: 0.5,
         }}
       >
-        {message}
+        Loading...
       </Typography>
     </Box>
   );

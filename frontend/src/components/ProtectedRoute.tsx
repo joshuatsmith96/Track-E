@@ -13,18 +13,20 @@ const ProtectedRoute: React.FC = () => {
     if (isLoaded) {
       timer = window.setTimeout(() => {
         setShowLoading(false);
-      }, 3000);
+      }, 2000);
     }
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+    };
   }, [isLoaded]);
 
   if (!isLoaded || showLoading) {
-    const message = !isSignedIn && isLoaded ? "Signing Out" : "Signing In";
-    return <LoadingScreen message={message} />;
+    return <LoadingScreen />;
   }
 
   if (!isSignedIn) return <Navigate to="/login" replace />;
+
   return <Outlet />;
 };
 
