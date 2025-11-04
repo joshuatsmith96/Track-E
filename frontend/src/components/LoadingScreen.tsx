@@ -1,8 +1,6 @@
-// LoadingScreen.tsx
 import React from "react";
 import { Box, Typography, CircularProgress, keyframes } from "@mui/material";
 
-// Define a custom pulsating animation for the spinner
 const pulse = keyframes`
   0% {
     transform: scale(0.8);
@@ -35,7 +33,6 @@ const LoadingScreen: React.FC = () => {
         zIndex: 1300, // MUI's modal zIndex
       }}
     >
-      {/* Custom animated CircularProgress */}
       <Box
         sx={{
           position: "relative",

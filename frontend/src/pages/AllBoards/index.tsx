@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import BoardContainer from "./Parts/BoardContainer";
 import type { Board } from "../../types/Board";
 import { useUser } from "@clerk/clerk-react";
+import Loading from "../../components/LoadingText";
 
 const AllBoards = () => {
   const { boards: fetchedBoards, loading, error } = useBoards();
@@ -45,13 +46,15 @@ const AllBoards = () => {
         My Boards
       </Typography>
 
-      <BoardContainer
-        boards={boards}
-        onCreateClick={() => setOpen(true)}
-        onDelete={handleDelete}
-      />
-
-      {loading && <Typography>Loading boards...</Typography>}
+      {loading ? (
+        <Loading />
+      ) : (
+        <BoardContainer
+          boards={boards}
+          onCreateClick={() => setOpen(true)}
+          onDelete={handleDelete}
+        />
+      )}
       {error && <Typography color="error">{error}</Typography>}
     </Stack>
   );
