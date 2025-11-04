@@ -79,7 +79,7 @@ const Board = () => {
         onCreate={handleCreateList}
       />
 
-      <Stack direction="row" sx={{ justifyContent: "space-between", mb: 5 }}>
+      <Stack direction="column" sx={{ justifyContent: "space-between", mb: 5 }}>
         <Typography variant="h5" sx={{ mb: 2 }}>
           <strong>{currentBoard?.board_name}</strong>
         </Typography>
@@ -89,7 +89,10 @@ const Board = () => {
           onClick={() => setOpen(true)}
           sx={{
             mb: 2,
-            width: "300px",
+            width: {
+              xs: "100%",
+              sm: "300px",
+            },
             bgcolor: dashConfig.styles.menuItemColorPrimary,
             color: "white",
           }}

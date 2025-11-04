@@ -15,7 +15,17 @@ const BoardContainer = ({
   onDelete,
 }: BoardContainerProps) => {
   return (
-    <Stack direction="row" gap={2} flexWrap="wrap">
+    <Stack
+      direction="row"
+      gap={2}
+      flexWrap="wrap"
+      sx={{
+        justifyContent: {
+          xs: "center",
+          sm: "unset",
+        },
+      }}
+    >
       <MainCreateBoardButton onClick={onCreateClick} />
       {boards?.map((board) => (
         <BoardTile

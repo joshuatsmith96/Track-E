@@ -86,10 +86,14 @@ const BoardList = ({
       <Paper
         sx={{
           borderRadius: 2,
-          width: "300px",
+          width: {
+            xs: "100%",
+            sm: "300px",
+          },
           flexShrink: 0,
           height: "content-fit",
           padding: 2,
+          boxSizing: "border-box",
         }}
       >
         <Stack
