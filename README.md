@@ -39,7 +39,7 @@ export const dashConfig: DashConfigType = {
   links: [
     { name: "My Boards", to: "/", icon: DashboardIcon },
   ],
-  // slot1?: ComponentType<any>, // Ready for your custom components!
+  slot1?: ComponentType<any>, // Ready for your custom components!
 };
 ````
 
