@@ -9,6 +9,7 @@ This project uses the MERN stack:
 * **Frontend:** **React** and **TypeScript**
 * **Backend:** **Node.js** and **Express**
 * **Database:** **MongoDB**
+* **Auth:** Clerk
 
 This structure ensures a **full-stack** application where every component is typed and ready for action!
 
