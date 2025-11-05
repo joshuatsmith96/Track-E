@@ -1,3 +1,8 @@
+That's a solid `README.md`\! Setting up the project is the logical next step.
+
+Here is your complete `README.md` with a new, clear **Project Setup** section added, detailing the necessary environment variables and the need for a MongoDB cluster.
+
+````markdown
 # Track-E: Your Next Lightweight "Trello-like" Project Manager
 
 ## 🚀 Overview
@@ -9,7 +14,7 @@ This project uses the MERN stack:
 * **Frontend:** **React** and **TypeScript**
 * **Backend:** **Node.js** and **Express**
 * **Database:** **MongoDB**
-* **Auth:** Clerk
+* **Auth:** **Clerk**
 
 This structure ensures a **full-stack** application where every component is typed and ready for action!
 
@@ -47,3 +52,54 @@ export const dashConfig: DashConfigType = {
 ## ✅ Code Quality
 
 To keep the codebase clean and error-free (because nobody likes bugs), **ESLint** has been strictly enforced across the project. This ensures a consistent style and catches potential errors before they become headaches. You're welcome.
+
+-----
+
+## ⚙️ Project Setup
+
+To get Track-E up and running, you'll need to set up a MongoDB cluster and configure the required environment variables.
+
+### 1\. MongoDB Configuration
+
+  * You must **set up a MongoDB cluster** (e.g., using MongoDB Atlas) to provide a database URI.
+  * The application cannot run without a valid connection string.
+
+### 2\. Environment Variables
+
+Create `.env` files in both your frontend and backend directories and populate them using the structure provided below.
+
+| File | Variable | Description |
+| :--- | :--- | :--- |
+| **Frontend (.env)** | `VITE_CLERK_PUBLISHABLE_KEY` | Your public Clerk key for client-side authentication. |
+| | `VITE_API_URL` | The endpoint for your running backend (e.g., `http://localhost:5000`). |
+| **Backend (.env)** | `PORT` | The port the Node/Express server will listen on (e.g., `5000`). |
+| | `MONGO_URI` | The connection string for your MongoDB cluster. |
+| | `CLERK_PUBLISHABLE_KEY` | Your public Clerk key. |
+| | `CLERK_JWT_KEY` | The secret key required for backend JWT verification. |
+| | `AUTHORIZED_PARTIES` | A comma-separated list of front-end URLs allowed to communicate with the backend. |
+
+#### **`.env.example` Snippet for Reference:**
+
+**Front-End `.env`:**
+
+```dotenv
+VITE_CLERK_PUBLISHABLE_KEY=pk_test_asdfasdfasdf
+VITE_API_URL=API_ENDPOINT_HERE
+```
+
+**Back-End `.env`:**
+
+```dotenv
+PORT=5000
+MONGO_URI=mongodbURI
+CLERK_PUBLISHABLE_KEY=pk_test_yourkeyhere
+CLERK_JWT_KEY=""
+AUTHORIZED_PARTIES=http://localhost:5173,[https://testing.joshuasportfolio.org](https://testing.joshuasportfolio.org)
+```
+
+-----
+
+Since we now have the setup details, would you like a concise set of **"How to Run" instructions** (e.g., `npm install`, `npm start`) to complete the `README.md`?
+
+```
+```
