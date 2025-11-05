@@ -1,8 +1,3 @@
-That's a solid `README.md`\! Setting up the project is the logical next step.
-
-Here is your complete `README.md` with a new, clear **Project Setup** section added, detailing the necessary environment variables and the need for a MongoDB cluster.
-
-````markdown
 # Track-E: Your Next Lightweight "Trello-like" Project Manager
 
 ## 🚀 Overview
@@ -95,11 +90,4 @@ MONGO_URI=mongodbURI
 CLERK_PUBLISHABLE_KEY=pk_test_yourkeyhere
 CLERK_JWT_KEY=""
 AUTHORIZED_PARTIES=http://localhost:5173,[https://testing.joshuasportfolio.org](https://testing.joshuasportfolio.org)
-```
-
------
-
-Since we now have the setup details, would you like a concise set of **"How to Run" instructions** (e.g., `npm install`, `npm start`) to complete the `README.md`?
-
-```
 ```
