@@ -1,4 +1,3 @@
-````markdown
 # Track-E: Your Next Lightweight "Trello-like" Project Manager
 
 ## 🚀 Overview
@@ -47,5 +46,3 @@ export const dashConfig: DashConfigType = {
 ## ✅ Code Quality
 
 To keep the codebase clean and error-free (because nobody likes bugs), **ESLint** has been strictly enforced across the project. This ensures a consistent style and catches potential errors before they become headaches. You're welcome.
-
-```
