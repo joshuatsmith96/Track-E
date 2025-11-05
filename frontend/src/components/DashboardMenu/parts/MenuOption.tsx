@@ -32,7 +32,7 @@ const MenuOption = ({ children, to, icon, showWords }: MenuOptionType) => {
             color: isActive
               ? dashConfig.styles.activeLinkColor
               : dashConfig.styles.normalLinkColor,
-            ml: !showWords ? (isActive ? 2 : "") : "",
+            ml: !showWords ? (isActive ? 1 : "") : "",
             borderRadius: 0,
             px: 2,
             py: 1,
@@ -42,7 +42,7 @@ const MenuOption = ({ children, to, icon, showWords }: MenuOptionType) => {
             "&:hover": {
               borderRadius: 2,
               backgroundColor: dashConfig.styles.linkHover,
-              ml: !showWords ? (isActive ? 3 : 1) : "",
+              ml: !showWords ? (isActive ? 2 : 1) : "",
             },
             gap: 2,
           }}
