@@ -4,11 +4,11 @@
 **Track-E** is a full-stack project built to offer a streamlined, board-based experience similar to Trello. Users can create multiple boards, and within those boards, they can organize their tasks using multiple lists. It’s the perfect place to keep your projects... well, on track.
 
 ## 🛠️ Tech Stack
-This project leverages a robust and modern stack:
+This project uses the MERN stack:
 
-* **Frontend:** **React** and **TypeScript** (for type safety that saves the day).
-* **Backend:** **Node.js** and **Express** (the reliable workhorses).
-* **Database:** **MongoDB** (for flexible, non-relational data storage).
+* **Frontend:** **React** and **TypeScript**
+* **Backend:** **Node.js** and **Express**
+* **Database:** **MongoDB**
 
 This structure ensures a **full-stack** application where every component is typed and ready for action!
 
@@ -21,7 +21,7 @@ The application performs standard **CRUD** (Create, Read, Update, Delete) operat
 * **Delete** boards and lists when they are no longer needed.
 
 ## ✨ Key Feature: Customizable Dashboard
-A highlight of this project is the newly developed **Dashboard component**. We've made customization a breeze!
+A highlight of this project is the newly developed **Dashboard component** developed by me. This Dashboard is open for others to use, and features a fully customizable config file. No need to adjust the code unless you need to.
 
 Instead of digging through component files, you can adjust the appearance, navigation links, and even plug in extra components (`slot1`, `slot2`) directly via the `dashConfig.ts` file.
 
