@@ -1,19 +1,34 @@
-import { Stack, Typography, Button } from "@mui/material";
+import {
+  Stack,
+  Typography,
+  Button,
+  IconButton,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField,
+} from "@mui/material";
 import { useParams, NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
+import EditIcon from "@mui/icons-material/Edit";
 import useBoards from "../../utilities/hooks/useBoards";
 import BoardList from "./parts/BoardList";
 import useCreateList from "../../utilities/hooks/useCreateList";
 import CreateListDialog from "./parts/CreateListDialog";
 import { dashConfig } from "../../components/DashboardMenu/dashConfig";
+import useUpdateBoard from "../../utilities/hooks/useUpdateBoard";
 
 const Board = () => {
   const { id } = useParams();
-  const boardId: string | undefined = id != undefined ? id : "";
+  const boardId: string | undefined = id ?? "";
   const { boards } = useBoards();
   const { createList } = useCreateList();
+  const { updateBoard } = useUpdateBoard();
 
-  const [open, setOpen] = useState(false);
+  const [openListDialog, setOpenListDialog] = useState(false);
+  const [openEditDialog, setOpenEditDialog] = useState(false);
+  const [newBoardName, setNewBoardName] = useState("");
   const [currentBoard, setCurrentBoard] = useState(
     boards?.find((board) => board.board_id === id)
   );
@@ -41,7 +56,7 @@ const Board = () => {
             }
           : prev
       );
-      setOpen(false);
+      setOpenListDialog(false);
     }
   };
 
@@ -53,12 +68,31 @@ const Board = () => {
     );
   };
 
+  const handleEditClick = () => {
+    if (currentBoard) {
+      setNewBoardName(currentBoard.board_name);
+      setOpenEditDialog(true);
+    }
+  };
+
+  const handleSaveBoardName = async () => {
+    if (!currentBoard || !newBoardName.trim()) return;
+
+    const updated = await updateBoard(currentBoard.board_id, {
+      board_name: newBoardName.trim(),
+    });
+
+    if (updated) {
+      setCurrentBoard((prev) =>
+        prev ? { ...prev, board_name: newBoardName.trim() } : prev
+      );
+      setOpenEditDialog(false);
+    }
+  };
+
   return (
-    <Stack
-      sx={{
-        width: "100%",
-      }}
-    >
+    <Stack sx={{ width: "100%" }}>
+      {/* Back button */}
       <Button
         variant="outlined"
         sx={{
@@ -73,22 +107,57 @@ const Board = () => {
         Back to Boards
       </Button>
 
+      {/* Create list dialog */}
       <CreateListDialog
-        open={open}
-        onClose={() => setOpen(false)}
+        open={openListDialog}
+        onClose={() => setOpenListDialog(false)}
         onCreate={handleCreateList}
       />
 
-      <Stack direction="column" sx={{ justifyContent: "space-between", mb: 5 }}>
-        <Typography variant="h5" sx={{ mb: 2 }}>
-          <strong>{currentBoard?.board_name}</strong>
-        </Typography>
+      {/* Edit board name dialog */}
+      <Dialog open={openEditDialog} onClose={() => setOpenEditDialog(false)}>
+        <DialogTitle>Edit Board Name</DialogTitle>
+        <DialogContent>
+          <TextField
+            fullWidth
+            margin="dense"
+            label="Board Name"
+            value={newBoardName}
+            onChange={(e) => setNewBoardName(e.target.value)}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpenEditDialog(false)}>Cancel</Button>
+          <Button variant="contained" onClick={handleSaveBoardName}>
+            Save
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Board Header */}
+      <Stack
+        direction="row"
+        alignItems="center"
+        justifyContent="space-between"
+        sx={{ mb: 5 }}
+      >
+        <Stack direction="row" alignItems="center" gap={1}>
+          <Typography variant="h5">
+            <strong>{currentBoard?.board_name}</strong>
+          </Typography>
+          <IconButton
+            onClick={handleEditClick}
+            size="small"
+            sx={{ color: dashConfig.styles.menuItemColorPrimary }}
+          >
+            <EditIcon />
+          </IconButton>
+        </Stack>
 
         <Button
           variant="contained"
-          onClick={() => setOpen(true)}
+          onClick={() => setOpenListDialog(true)}
           sx={{
-            mb: 2,
             width: {
               xs: "100%",
               sm: "300px",
@@ -101,14 +170,15 @@ const Board = () => {
         </Button>
       </Stack>
 
+      {/* Board Content */}
       {currentBoard ? (
         currentBoard?.lists.length > 0 ? (
           <Stack
             direction="row"
             gap={2}
-            justifyContent={"start"}
-            alignItems={"start"}
-            flexWrap={"wrap"}
+            justifyContent="start"
+            alignItems="start"
+            flexWrap="wrap"
           >
             {currentBoard?.lists?.map((list) => (
               <BoardList
@@ -124,9 +194,7 @@ const Board = () => {
         ) : (
           <Typography>There are currently no lists in your board.</Typography>
         )
-      ) : (
-        ""
-      )}
+      ) : null}
     </Stack>
   );
 };
