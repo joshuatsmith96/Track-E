@@ -1,12 +1,12 @@
-import PlaylistAddCircleIcon from "@mui/icons-material/PlaylistAddCircle";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 // import { NavCreateBoardButton } from "../CreateBoardButton";
 import { type SvgIconComponent } from "@mui/icons-material";
 import type { ComponentType } from "react";
+import Logo from "../../assets/Track-E Icon (PNG).png";
 
 export type DashConfigType = {
   dashboardName: string;
-  dashboardIcon: SvgIconComponent;
+  dashboardIcon: SvgIconComponent | string;
   styles: {
     titleColor?: string;
     menuBg?: string;
@@ -32,7 +32,7 @@ export type DashConfigType = {
 
 export const dashConfig: DashConfigType = {
   dashboardName: "Track-E",
-  dashboardIcon: PlaylistAddCircleIcon,
+  dashboardIcon: Logo,
   styles: {
     titleColor: "white",
     menuBg: "rgba(32, 32, 32, 1)",

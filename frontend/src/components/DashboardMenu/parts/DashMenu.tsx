@@ -11,6 +11,8 @@ type DashMenuType = {
 
 const DashMenu = ({ visible }: DashMenuType) => {
   const Icon = dashConfig.dashboardIcon;
+  const iconType = typeof dashConfig.dashboardIcon;
+  console.log("ICON TYPE", iconType);
   const Links = dashConfig.links;
   const currentWidth = window.innerWidth;
   const Slot1Component = dashConfig.slot1 || null;
@@ -93,7 +95,12 @@ const DashMenu = ({ visible }: DashMenuType) => {
         gap={1}
         color={dashConfig.styles.titleColor || "black"}
       >
-        <Icon />
+        {iconType === "string" ? (
+          <img src={Icon as string} style={{ width: "35px" }} />
+        ) : (
+          <Icon style={{ width: 35, height: 35 }} />
+        )}
+
         <Typography
           variant="h6"
           sx={{
