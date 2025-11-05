@@ -6,6 +6,7 @@ import {
   Menu,
   Button,
   MenuItem,
+  TextField,
 } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import type { ListItemType } from "../../../types/ListItem";
@@ -13,6 +14,7 @@ import ListItem from "./ListItem";
 import { useState, useEffect } from "react";
 import useDeleteList from "../../../utilities/hooks/useDeleteList";
 import useCreateListItem from "../../../utilities/hooks/useCreateListItem";
+import useUpdateList from "../../../utilities/hooks/useUpdateList";
 import CreateListItemDialog from "./CreatelistItemDialog";
 
 type BoardListProps = {
@@ -33,10 +35,13 @@ const BoardList = ({
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [openDialog, setOpenDialog] = useState(false);
   const [listItems, setListItems] = useState<ListItemType[]>(initialListItems);
+  const [isEditing, setIsEditing] = useState(false);
+  const [listName, setListName] = useState(name);
 
   const open = Boolean(anchorEl);
   const { deleteList, loading: deleting } = useDeleteList();
   const { createListItem, loading: creating } = useCreateListItem();
+  const { updateList, loading: updating } = useUpdateList();
 
   useEffect(() => {
     setListItems(initialListItems);
@@ -81,6 +86,37 @@ const BoardList = ({
     setOpenDialog(false);
   };
 
+  const handleNameClick = () => {
+    setIsEditing(true);
+  };
+
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setListName(e.target.value);
+  };
+
+  const handleNameBlur = async () => {
+    setIsEditing(false);
+    if (listName.trim() !== name) {
+      const updated = await updateList(boardId, listId, {
+        list_name: listName.trim(),
+      });
+      if (!updated) {
+        // if failed, revert name
+        setListName(name);
+        console.log("Failed");
+      }
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      (e.target as HTMLInputElement).blur();
+    } else if (e.key === "Escape") {
+      setListName(name);
+      setIsEditing(false);
+    }
+  };
+
   return (
     <>
       <Paper
@@ -100,7 +136,30 @@ const BoardList = ({
           direction={"row"}
           sx={{ justifyContent: "space-between", mb: 3 }}
         >
-          <Typography>{name}</Typography>
+          {isEditing ? (
+            <TextField
+              value={listName}
+              onChange={handleNameChange}
+              onBlur={handleNameBlur}
+              onKeyDown={handleKeyDown}
+              size="small"
+              variant="standard"
+              autoFocus
+              fullWidth
+              disabled={updating}
+            />
+          ) : (
+            <Typography
+              onClick={handleNameClick}
+              sx={{
+                cursor: "pointer",
+                "&:hover": { textDecoration: "underline" },
+              }}
+            >
+              {listName}
+            </Typography>
+          )}
+
           <div>
             <IconButton size="small" onClick={handleMenuOpen}>
               <MoreVertIcon />
@@ -120,9 +179,26 @@ const BoardList = ({
         </Stack>
 
         <Stack gap={1}>
-          {listItems?.map((item) => (
-            <ListItem key={item.list_id} listItemText={item.list_text} />
-          ))}
+          {listItems?.map((item) => {
+            const status =
+              item.status === "Complete" ? item.status : "NotComplete";
+
+            return (
+              <ListItem
+                key={item.list_id}
+                listItemText={item.list_text}
+                boardId={boardId}
+                listId={listId}
+                listItemId={item.list_id}
+                status={status}
+                onDelete={() =>
+                  setListItems(
+                    listItems.filter((li) => li.list_id !== item.list_id)
+                  )
+                }
+              />
+            );
+          })}
         </Stack>
 
         <Button
