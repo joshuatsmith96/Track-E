@@ -18,11 +18,12 @@ import useCreateList from "../../utilities/hooks/useCreateList";
 import CreateListDialog from "./parts/CreateListDialog";
 import { dashConfig } from "../../components/DashboardMenu/dashConfig";
 import useUpdateBoard from "../../utilities/hooks/useUpdateBoard";
+import Loading from "../../components/LoadingText";
 
 const Board = () => {
   const { id } = useParams();
   const boardId: string | undefined = id ?? "";
-  const { boards } = useBoards();
+  const { boards, loading, error } = useBoards(); // add loading + error from hook
   const { createList } = useCreateList();
   const { updateBoard } = useUpdateBoard();
 
@@ -90,6 +91,21 @@ const Board = () => {
     }
   };
 
+  if (loading) return <Loading />; // same pattern as AllBoards
+  if (error)
+    return (
+      <Typography color="error" sx={{ mt: 2 }}>
+        {error}
+      </Typography>
+    );
+
+  if (!currentBoard)
+    return (
+      <Typography sx={{ mt: 2 }}>
+        Could not find that board. Please go back and try again.
+      </Typography>
+    );
+
   return (
     <Stack sx={{ width: "100%" }}>
       {/* Back button */}
@@ -136,14 +152,23 @@ const Board = () => {
 
       {/* Board Header */}
       <Stack
-        direction="row"
-        alignItems="center"
         justifyContent="space-between"
-        sx={{ mb: 5 }}
+        sx={{
+          gap: 2,
+          mb: 5,
+          flexDirection: {
+            xs: "column",
+            md: "row",
+          },
+          alignItems: {
+            xs: "left",
+            md: "center",
+          },
+        }}
       >
         <Stack direction="row" alignItems="center" gap={1}>
           <Typography variant="h5">
-            <strong>{currentBoard?.board_name}</strong>
+            <strong>{currentBoard.board_name}</strong>
           </Typography>
           <IconButton
             onClick={handleEditClick}
@@ -171,30 +196,28 @@ const Board = () => {
       </Stack>
 
       {/* Board Content */}
-      {currentBoard ? (
-        currentBoard?.lists.length > 0 ? (
-          <Stack
-            direction="row"
-            gap={2}
-            justifyContent="start"
-            alignItems="start"
-            flexWrap="wrap"
-          >
-            {currentBoard?.lists?.map((list) => (
-              <BoardList
-                boardId={boardId}
-                listId={list.list_id}
-                key={list.list_id}
-                name={list.list_name}
-                listItems={list.list_items}
-                onDelete={() => handleDeleteList(list.list_id)}
-              />
-            ))}
-          </Stack>
-        ) : (
-          <Typography>There are currently no lists in your board.</Typography>
-        )
-      ) : null}
+      {currentBoard.lists.length > 0 ? (
+        <Stack
+          direction="row"
+          gap={2}
+          justifyContent="start"
+          alignItems="start"
+          flexWrap="wrap"
+        >
+          {currentBoard.lists.map((list) => (
+            <BoardList
+              boardId={boardId}
+              listId={list.list_id}
+              key={list.list_id}
+              name={list.list_name}
+              listItems={list.list_items}
+              onDelete={() => handleDeleteList(list.list_id)}
+            />
+          ))}
+        </Stack>
+      ) : (
+        <Typography>There are currently no lists in your board.</Typography>
+      )}
     </Stack>
   );
 };
