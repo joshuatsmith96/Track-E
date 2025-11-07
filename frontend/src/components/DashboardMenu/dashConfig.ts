@@ -2,7 +2,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 // import { NavCreateBoardButton } from "../CreateBoardButton";
 import { type SvgIconComponent } from "@mui/icons-material";
 import type { ComponentType } from "react";
-import Logo from "../../assets/Track-E Icon (PNG).png";
+import Logo from "../../assets/TrackEIcon.png";
 
 export type DashConfigType = {
   dashboardName: string;

@@ -20,6 +20,8 @@ export interface MobileMenuProps {
 const MobileMenu: React.FC<MobileMenuProps> = ({ open, onClose }) => {
   const menuItems = dashConfig.links;
   const Icon = dashConfig.dashboardIcon;
+  const iconType = typeof dashConfig.dashboardIcon;
+
   console.log(menuItems);
 
   return (
@@ -48,7 +50,11 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ open, onClose }) => {
         gap={1}
         color={dashConfig.styles.titleColor || "black"}
       >
-        <Icon />
+        {iconType === "string" ? (
+          <img src={Icon as string} style={{ width: "35px" }} />
+        ) : (
+          <Icon style={{ width: 35, height: 35 }} />
+        )}
         <Typography
           variant="h6"
           sx={{
